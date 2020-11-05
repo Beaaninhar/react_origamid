@@ -29,7 +29,7 @@ const App = () => {
     <>
       {produtos
         .filter((produto) => Number(produto.preco.replace("R$ ", "")) > 1500)
-        .map(({id, nome, preco, cores}) => (
+        .map(({ id, nome, preco, cores }) => (
           <div key={id}>
             <h1>{nome}</h1>
             <p>Preço: {preco}</p>

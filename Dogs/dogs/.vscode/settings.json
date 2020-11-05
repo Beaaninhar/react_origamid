@@ -7,5 +7,6 @@
     "package.json": true,
     "package-lock.json": true,
     "public": true
-  }
+  },
+  "eslint.alwaysShowStatus": true
 }
