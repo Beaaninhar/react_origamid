@@ -1,25 +1,43 @@
 /* eslint-disable array-callback-return */
-import React from "react";
-import Header from "./Header";
-import Home from "./Home";
-import Produtos from "./Produtos";
+import React, { useState } from "react";
+import ButtonModal from "./ButtonModal";
+import Modal from "./Modal";
 
 const App = () => {
-  const { pathname } = window.location;
-
-  let Component;
-  if (pathname === '/produtos') {
-    Component = Produtos;
-  } else {
-    Component = Home;
-  }
+  const [modal, setModal] = useState(false)
 
   return (
-    <section>
-      <Header />
-      <Component />
-    </section>
+    <div>
+      {/* <div>
+        {modal ? 'Aberto' : 'fechado'}
+      </div> */}
+      <Modal modal={modal} setModal={setModal} />
+      <ButtonModal setModal={setModal} />
+    </div>
   );
 };
 
 export default App;
+
+
+/*
+EXEMPLO 01
+.............................
+
+ const [ativo, setAtivo] = useState(false)
+  const [dados, setDados] = useState({ nome: 'André', idade: '38' })
+  function handleClick() {
+    setAtivo(!ativo)
+    setDados({ ...dados, faculdade: 'Possui faculdade' })
+    console.log(ativo)
+  }
+  return (
+    <div>
+      <p>{dados.nome}</p>
+      <p>{dados.idade}</p>
+      <p>{dados.faculdade}</p>
+      <button onClick={handleClick}>{ativo ? 'Ativo' : 'Inativo'}</button>
+    </div>
+  );
+
+*/
