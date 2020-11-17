@@ -1,18 +1,24 @@
 /* eslint-disable array-callback-return */
 import React, { useState } from "react";
-import ButtonModal from "./ButtonModal";
-import Modal from "./Modal";
+
+
 
 const App = () => {
-  const [modal, setModal] = useState(false)
+  const [contar, setContar] = useState(1)
+  const [items, setItems] = React.useState(['Item 1']);
 
+  function handleClick() {
+    setContar((contar) => {
+      return contar + 1;
+    });
+    setItems((items) => [...items, 'Item ' + (contar + 1)]);
+  }
   return (
     <div>
-      {/* <div>
-        {modal ? 'Aberto' : 'fechado'}
-      </div> */}
-      <Modal modal={modal} setModal={setModal} />
-      <ButtonModal setModal={setModal} />
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+      <button onClick={handleClick}>{contar}</button>
     </div>
   );
 };
