@@ -1,35 +1,31 @@
 /* eslint-disable array-callback-return */
 import React, { useState } from "react";
-
-
+import Produto from "./Produto";
 
 const App = () => {
-  const [contar, setContar] = useState(1)
-  const [items, setItems] = React.useState(['Item 1']);
+  const [dados, setDados] = useState(null);
 
-  function handleClick() {
-    setContar((contar) => {
-      return contar + 1;
-    });
-    setItems((items) => [...items, 'Item ' + (contar + 1)]);
+  async function handleClick(event) {
+    const response = await fetch(
+      `https://ranekapi.origamid.dev/json/api/produto/${event.target.innerText}`
+    );
+    const json = await response.json();
+    setDados(json);
   }
-  return (
-    <div>
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-      <button onClick={handleClick}>{contar}</button>
-    </div>
-  );
+
+  return <div>
+    <button style={{margin: '.5rem'}} onClick={handleClick}>notebook</button>
+    <button style={{margin: '.5rem'}} onClick={handleClick}>smartphone</button>
+    <button style={{margin: '.5rem'}} onClick={handleClick}>tablet</button>
+    {dados ? <Produto dados={dados}/> : 'Sem produto disponível'}
+  </div>;
 };
 
 export default App;
 
-
 /*
 EXEMPLO 01
 .............................
-
  const [ativo, setAtivo] = useState(false)
   const [dados, setDados] = useState({ nome: 'André', idade: '38' })
   function handleClick() {
