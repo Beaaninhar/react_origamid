@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react';
+import { GlobalStorage } from './GlobalStorage';
+
 
 const Produto = () => {
+  const global = useContext(GlobalStorage);
 
-  return (
-    <div>
+  function handleClick() {
+    global.setContar((contar) => contar + 1)
+  }
 
-    </div>
-  );
-}
+  return <div>Produto: {global.contar} <button onClick={handleClick}> Add</button></div>;
+};
 
-export default Produto
+export default Produto;
