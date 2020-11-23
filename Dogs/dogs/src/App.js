@@ -1,45 +1,32 @@
 /* eslint-disable array-callback-return */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Produto from "./Produto";
 
 const App = () => {
-  const [dados, setDados] = useState(null);
+  const [produto, setProduto] = useState(null)
 
-  async function handleClick(event) {
-    const response = await fetch(
-      `https://ranekapi.origamid.dev/json/api/produto/${event.target.innerText}`
-    );
-    const json = await response.json();
-    setDados(json);
+
+  React.useEffect(() => {
+    const produtoLocal = window.localStorage.getItem('produto');
+    if (produtoLocal !== 'null') setProduto(produtoLocal);
+  }, []);
+
+  React.useEffect(() => {
+    if (produto !== null) window.localStorage.setItem('produto', produto);
+  }, [produto]);
+
+
+  function handleClick({ target }) {
+    setProduto(target.innerText)
   }
-
-  return <div>
-    <button style={{margin: '.5rem'}} onClick={handleClick}>notebook</button>
-    <button style={{margin: '.5rem'}} onClick={handleClick}>smartphone</button>
-    <button style={{margin: '.5rem'}} onClick={handleClick}>tablet</button>
-    {dados ? <Produto dados={dados}/> : 'Sem produto disponível'}
-  </div>;
+  return (
+    < div >
+      <h1>Preferência: {produto}</h1>
+      <button onClick={handleClick} style={{ marginRight: '1rem' }}>notebook</button>
+      <button onClick={handleClick}>smartphone</button>
+      <Produto produto={produto} />
+    </div >
+  );
 };
 
 export default App;
-
-/*
-EXEMPLO 01
-.............................
- const [ativo, setAtivo] = useState(false)
-  const [dados, setDados] = useState({ nome: 'André', idade: '38' })
-  function handleClick() {
-    setAtivo(!ativo)
-    setDados({ ...dados, faculdade: 'Possui faculdade' })
-    console.log(ativo)
-  }
-  return (
-    <div>
-      <p>{dados.nome}</p>
-      <p>{dados.idade}</p>
-      <p>{dados.faculdade}</p>
-      <button onClick={handleClick}>{ativo ? 'Ativo' : 'Inativo'}</button>
-    </div>
-  );
-
-*/
