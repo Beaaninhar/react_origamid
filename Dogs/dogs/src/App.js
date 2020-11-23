@@ -5,11 +5,10 @@ import Produto from "./Produto";
 const App = () => {
   const [contar, setContar] = useState(0)
 
-  const valor = useMemo(() => {
-    const localItem = window.localStorage.getItem('produto')
-    console.log('Aconteceu o memo')
-    return localItem
-  }, [])
+  const handleClick = React.useCallback(() => {
+    setContar((contar) => contar + 1);
+  }, []);
+
   console.log(valor)
   return (
     < div >
