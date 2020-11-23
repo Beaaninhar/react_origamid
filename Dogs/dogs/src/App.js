@@ -1,34 +1,19 @@
 /* eslint-disable array-callback-return */
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Produto from "./Produto";
 
 const App = () => {
-  const [comentarios, setComentarios] = React.useState([]);
-  const [input, setInput] = React.useState('');
-  const inputElement = React.useRef();
+  const [contar, setContar] = useState(0)
 
-
-  function handleClick() {
-    setComentarios((comentarios) => [...comentarios, input]);
-    setInput('');
-    inputElement.current.focus();
-  }
-
+  const valor = useMemo(() => {
+    const localItem = window.localStorage.getItem('produto')
+    console.log('Aconteceu o memo')
+    return localItem
+  }, [])
+  console.log(valor)
   return (
     < div >
-      <ul>
-        {comentarios.map((comentario) => (
-          <li key={comentario}>{comentario}</li>
-        ))}
-      </ul>
-      <input
-        type="text"
-        value={input}
-        ref={inputElement}
-        onChange={({ target }) => setInput(target.value)}
-      />
-      <br />
-      <button onClick={handleClick}>Enviar</button>
+      <button onClick={() => setContar(contar + 1)}>{contar}</button>
     </div>
   );
 };
