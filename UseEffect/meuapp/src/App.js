@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import Exemplo1 from "./Exemplo1";
+import Exemplo2 from "./Exemplo2";
+import Exemplo3 from './Exemplo3'
+import Exercicio from "./Exercicio";
 
 function App() {
-  return <div>oi</div>;
+  
+  return (
+    <div>
+      <Exercicio/>
+    </div>
+  );
 }
 
 export default App;
