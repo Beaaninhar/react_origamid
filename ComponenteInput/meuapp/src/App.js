@@ -1,50 +1,57 @@
 import React from "react";
-import Checkbox from "./Form/Checkbox";
 import Input from "./Form/Input";
-import Radio from "./Form/Radio";
-import Select from "./Form/Select";
+import useForm from "./Hooks/useForm";
 
 function App() {
-  const [nome, setNome] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [produto, setProduto] = React.useState("");
-  const [cor, setCor] = React.useState('');
-  const [fruta, setFruta] = React.useState([]);
-  const [termos, setTermos] = React.useState([]);
-  
+  const cep = useForm("cep");
+  const email = useForm("email");
+  const nome = useForm();
+  const sobrenome = useForm(false);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (cep.validate() && email.validate() && nome.validate()) {
+      console.log("Enviar");
+    } else {
+      console.log("Não enviar");
+    }
+  }
+
   return (
-    <div>
-      <Input label="Nome" value={nome} setValue={setNome} />
-      <Input label="Email" value={email} setValue={setEmail} />
-      <br />
-      <hr/>
-      <Select
-        options={["Notebook", "Smartphone", "Tablet"]}
-        value={produto}
-        setValue={setProduto}
+    <form onSubmit={handleSubmit}>
+      <Input
+        label="Nome"
+        id="nome"
+        type="text"
+        placeholder="Seu nome"
+        {...nome}
       />
       <br/>
-      <hr/>
-      <Radio
-        options={['azul', 'verde', 'amarelo']}
-        value={cor}
-        setValue={setCor}
+      <Input
+        label="Sobrenome"
+        id="sobrenome"
+        type="text"
+        placeholder="Seu sobrenome"
+        {...sobrenome}
       />
       <br/>
-      <hr/>
-      <Checkbox
-        options={['Uva', 'Laranja', 'Limão']}
-        value={fruta}
-        setValue={setFruta}
+      <Input
+        label="CEP"
+        id="cep"
+        type="text"
+        placeholder="00000-000"
+        {...cep}
       />
-
-      <Checkbox
-        options={['Termos e Condições']}
-        value={termos}
-        setValue={setTermos}
+      <br/>
+      <Input
+        label="Email"
+        id="email"
+        type="email"
+        placeholder="seuemail@hotmail.com.br"
+        {...email}
       />
-
-    </div>
+      <button style={{ margin: ".5rem 0rem 0rem 0rem" }}>Enviar</button>
+    </form>
   );
 }
 
