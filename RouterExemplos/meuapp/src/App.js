@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
-import Sobre from './Sobre';
-import Header from './Header';
+import Sobre from './pages/Sobre';
+import Header from './components/Header';
 
 const App = () => {
   return (
